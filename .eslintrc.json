@@ -26,7 +26,7 @@
       "version": "detect"
     },
     "postcss": {
-      "config": "postcss.config.ts"
+      "config": "postcss.config.js"
     }
   }
 }

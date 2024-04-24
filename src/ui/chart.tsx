@@ -1,19 +1,42 @@
+import {
+  Chart as ChartJS,
+  BarElement,
+  LinearScale,
+  CategoryScale,
+  Legend,
+  Title,
+  Tooltip,
+} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import defaultColors from './colors';
 
-const ChartComponent = ({ data }: { data: { x: number, y: number }[] }) => {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const ChartComponent = ({
+  data,
+  colors = [defaultColors.primary, defaultColors.secondary],
+}: {
+  data: { x: number; y: number }[];
+  colors?: string[];
+}) => {
   const chartData = {
     labels: ['A', 'B', 'C', 'D', 'E'],
     datasets: [
       {
         label: 'Data',
         data: data || [],
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: colors || [],
         borderWidth: 1,
       },
     ],
   };
-
   const options = {
     scales: {
       y: {
@@ -21,12 +44,6 @@ const ChartComponent = ({ data }: { data: { x: number, y: number }[] }) => {
       },
     },
   };
-
-  return (
-    <div className="w-full max-w-lg mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-      <Bar data={chartData} options={options} />
-    </div>
-  );
+  return <Bar data={chartData} options={options} />;
 };
-
 export default ChartComponent;
